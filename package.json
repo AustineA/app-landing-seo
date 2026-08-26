@@ -1,0 +1,33 @@
+{
+  "name": "app-landing-seo",
+  "version": "1.0.0",
+  "description": "SEO landing-page and GPT Image skills for mobile apps",
+  "bin": {
+    "app-landing-seo": "./bin/install.mjs"
+  },
+  "keywords": [
+    "seo",
+    "mobile-app",
+    "landing-page",
+    "gpt-image",
+    "claude-code",
+    "codex",
+    "skill"
+  ],
+  "author": "AustineA",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AustineA/app-landing-seo"
+  },
+  "files": [
+    "bin/",
+    "skill/",
+    "README.md",
+    "LICENSE"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  }
+}
