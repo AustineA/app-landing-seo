@@ -7,7 +7,7 @@ description: SEO-optimize a landing page for a mobile app end to end — pull Ap
 
 End-to-end workflow for turning an app's store listing into a high-converting, SEO-optimized landing site with long-tail guide pages. Default stack: **Vite + React with build-time prerendering** (architecture in Phase 3). If the repo already has a web framework (Next.js, Astro), build inside that instead and adapt the output paths. Every phase ends with verification.
 
-This skill is self-contained. Its bundled `scripts/generate_image.py` helper calls OpenAI's `gpt-image-2` Images API. Resolve the helper relative to this `SKILL.md`, not the user's project: set `SKILL_DIR` to this skill's installed directory, then run `"$SKILL_DIR/scripts/generate_image.py"`. It requires `uv` (preferred) or Python with the `openai` package, plus `GPT_API_KEY` or `OPENAI_API_KEY` in the environment.
+This skill depends on the separately installed **`gpt-image`** skill included in the same repository. When guide images are needed, load that skill and follow its instructions. Do not assume its helper lives inside this skill's directory.
 
 ## Phase 1 — Pull the store listing (source of truth)
 
@@ -87,13 +87,13 @@ Store guide content in the one data module (`src/data.ts` in the Vite setup; `li
 
 ### GPT Image feature-image workflow
 
-Every guide article gets its own landscape feature image. Use this skill's bundled GPT Image generator, which calls OpenAI's `gpt-image-2`; do not substitute stock imagery, CSS gradients, screenshots, or another image model unless the user explicitly asks.
+Every guide article gets its own landscape feature image. Load and use the **`gpt-image`** skill, which calls OpenAI's `gpt-image-2`; do not substitute stock imagery, CSS gradients, screenshots, or another image model unless the user explicitly asks. If `gpt-image` is not installed, stop before image generation and tell the user to install the sibling skill from this repository.
 
 1. After guide titles and slugs are final, make one image brief per guide from its search intent, concrete subject, and the app's visual identity captured in `app.md`. The concepts must be meaningfully different, not palette swaps of one composition.
 2. Prompt for an editorial feature image in the app's brand palette. Describe the subject, setting, composition, lighting, materials, camera/viewpoint, and where visual breathing room should sit. End every prompt with: `Landscape editorial feature image, 3:2 composition. Absolutely no text, words, letters, numbers, captions, watermarks, interface labels, or logos.` Do not ask the model to render the article title.
-3. Run the bundled generator with a deterministic destination:
+3. Resolve `GPT_IMAGE_SKILL_DIR` to the installed directory containing the `gpt-image` skill's `SKILL.md`, then run its generator with a deterministic destination:
    ```bash
-   "$SKILL_DIR/scripts/generate_image.py" "<guide-specific prompt>" \
+   "$GPT_IMAGE_SKILL_DIR/scripts/generate_image.py" "<guide-specific prompt>" \
      --model gpt-image-2 \
      --aspect-ratio 3:2 \
      --quality high \
