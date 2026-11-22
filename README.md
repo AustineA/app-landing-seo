@@ -25,9 +25,18 @@ It then symlinks both skills to every detected supported agent, including Claude
 Other commands:
 
 ```bash
+npx github:AustineA/app-landing-seo update
 npx github:AustineA/app-landing-seo status
 npx github:AustineA/app-landing-seo uninstall
 ```
+
+### Updating
+
+```bash
+npx github:AustineA/app-landing-seo update
+```
+
+It compares the latest commit on GitHub with the one recorded at install time. If yours is older, it clones the latest version and installs it. The installed copy is replaced, not merged, so files removed from a skill don't linger. Restart your agent afterwards.
 
 ## Requirements
 
